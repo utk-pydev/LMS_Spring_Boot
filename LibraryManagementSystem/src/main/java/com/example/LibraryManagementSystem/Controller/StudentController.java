@@ -10,20 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentController {
 
-    /*
+
     @Value("{$custom.my_prop}")
-    String my_text;
+    private String my_text;
+
     /*
     * ymal:old
     * yml:New
     *
     * */
-    /*
+
     @GetMapping("/sample")
     public String getMyString(){
         return this.my_text;
     }
-    */
+
 
     @Autowired
     StudentService studentService;
