@@ -32,11 +32,15 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Book> bookList;
 
-    /*
-    @OneToMany
+
+    @OneToMany(mappedBy = "my_student")
     private List<Transaction>transactionList;
-    private StudentAccount studentAccount;
-*/
+
+    @Enumerated(value = EnumType.STRING)
+    private AccoutStatus accoutStatus;
+
+    private boolean isActive;
+
     /*
     *   Two types of relationships in hibernate
     *

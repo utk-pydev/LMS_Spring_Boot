@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,22 +13,18 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Transaction {
+public class Author {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
+    private String country;
+    private int age;
 
-    @ManyToOne
-    @JoinColumn
-    private Student my_student;
+    @OneToMany(mappedBy = "author")
 
-    @Enumerated(value = EnumType.STRING)
-    private TransactionType transactionType;
-
-    private double payment;
-
-
+    private List<Book> bookList;
     @CreationTimestamp
-    private Date transactionDate;
-
+    private Date addedOn;
 }

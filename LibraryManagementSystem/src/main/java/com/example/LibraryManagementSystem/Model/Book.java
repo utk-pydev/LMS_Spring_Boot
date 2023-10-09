@@ -25,7 +25,13 @@ public class Book {
     private Student student;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
+
+
+
     private int cost;
+    @ManyToOne
+    @JoinColumn
+    private Author author;
     @CreationTimestamp
     private Date createdAt;
     @UpdateTimestamp
