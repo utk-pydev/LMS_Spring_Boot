@@ -29,10 +29,14 @@ public class Student {
     private Date createdAt;
     @UpdateTimestamp
     private Date updatedAt;
+    @OneToMany(mappedBy = "student")
     private List<Book> bookList;
+
+    /*
+    @OneToMany
     private List<Transaction>transactionList;
     private StudentAccount studentAccount;
-
+*/
     /*
     *   Two types of relationships in hibernate
     *

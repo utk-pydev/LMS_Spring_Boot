@@ -1,8 +1,12 @@
 package com.example.LibraryManagementSystem.Model;
 
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -11,4 +15,19 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToOne
+    //For FK
+    @JoinColumn
+    private Student student;
+    @Enumerated(value = EnumType.STRING)
+    private Genre genre;
+    private int cost;
+    @CreationTimestamp
+    private Date createdAt;
+    @UpdateTimestamp
+    private Date updatedAt;
 }
