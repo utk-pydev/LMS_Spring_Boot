@@ -1,4 +1,10 @@
 package com.example.LibraryManagementSystem.Repository;
 
-public interface TransactionRepository {
+import com.example.LibraryManagementSystem.Model.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
+
 }

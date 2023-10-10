@@ -19,8 +19,12 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Column(name = "land")
     private String country;
     private int age;
+
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @OneToMany(mappedBy = "author")
 
