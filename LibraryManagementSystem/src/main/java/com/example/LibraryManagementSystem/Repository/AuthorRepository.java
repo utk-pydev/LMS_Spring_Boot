@@ -17,10 +17,14 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     * JPQL - Java persistence query language
     * */
 
-    @Query(value = "select * from author where email=?1", nativeQuery = true)
+
+    Author findByEmail(String email);
+    List<Author> findByAgeGreaterThanEqualAndCountryAndNameStartingWith(int age, String country, String prefix);
+
+    @Query(value = "select * from Author where email=?1", nativeQuery = true)
     public Author getAuthorGivenEmailId(String author_email);
 
-    @Query("select * from Author where email = ?1")
+    @Query("select * from author where email = ?1")
     public Author getAuthorGivenEmailIdJPQL(String author_email);
 
 

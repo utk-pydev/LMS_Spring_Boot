@@ -19,8 +19,22 @@ public class BookService {
 
     public void create(BookCreateRequest bookCreateRequest){
         Book book = bookCreateRequest.to();
-        Author author = authorRepository.save(book.getAuthor());
-        book.setAuthor(author);
+        Author author = book.getAuthor();
+
+
+        /*
+        * Always use JPQL queries because JPA will validate all the queries then only our application will start where as native queries will not be validated and might give error during runtime
+        *JPQL checks with JAVA class whereas Native Query interacts with DB
+        * Cache is used only when hit ratio > 60%
+        *
+        * */
+
+        Author authorFromDB = authorRepository.getAuthorGivenEmailIdJPQL(author.getEmail());
+        if(authorFromDB == null){
+            authorFromDB = authorRepository.save(author);
+        }
+
+        book.setAuthor(authorFromDB);
         bookRepository.save(book);
     }
 }
