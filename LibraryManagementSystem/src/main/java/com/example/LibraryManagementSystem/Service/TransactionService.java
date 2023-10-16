@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TransactionService{
@@ -52,9 +53,9 @@ public class TransactionService{
         book.setStudent(student);
         Transaction transaction = Transaction.builder()
         .externalTxnId(UUID.randomUUID().toString())
-                .my_book(book)
+                .book(book)
                 .payment(book.getCost())
-                .my_student(student)
+                .student(student)
                 .transactionType(TransactionType.ISSUE)
                 .build();
 
@@ -62,8 +63,33 @@ public class TransactionService{
         bookService.create(book);
         return transaction.getExternalTxnId();
     }
-    public void returnTxn(int bookId, int studentId){
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public String returnTxn(int bookId, int studentId){
+        List<Book> books = bookService.find(BookFilterType.BOOK_ID, String.valueOf(bookId));
+        Student student = studentService.getStudentById(studentId);
+        Transaction issueTxn = transactionRepository
+                .findTopByBookAndStudentAndTransactionTypeOrderByTransactionDateDesc(books.get(0), student, TransactionType.ISSUE);
+        Transaction transaction = Transaction.builder()
+                .transactionType(TransactionType.RETURN)
+                .externalTxnId(UUID.randomUUID().toString())
+                .book(books.get(0))
+                .student(student)
+                .payment(calculateFine(issueTxn))
+            .build();
+        transactionRepository.save(transaction);
+        books.get(0).setStudent(null);
+        bookService.create(books.get(0));
+        return transaction.getExternalTxnId();
+    }
+    private double calculateFine(Transaction transaction){
+        long issueTime = transaction.getTransactionDate().getTime();
+        long returnTime = System.currentTimeMillis();
+        long diff = returnTime-issueTime;
+        long daysPassed = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        if(daysPassed >= number_of_days)
+            return (daysPassed-number_of_days)*1.0;
+        return 0.0;
     }
 
 }
