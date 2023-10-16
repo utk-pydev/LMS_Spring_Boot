@@ -21,6 +21,11 @@ public class Transaction {
     @JoinColumn
     private Student my_student;
 
+    @ManyToOne
+    @JoinColumn
+    private Book my_book;
+
+
     @Enumerated(value = EnumType.STRING)
     private TransactionType transactionType;
 

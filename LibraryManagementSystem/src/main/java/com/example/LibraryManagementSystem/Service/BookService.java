@@ -52,6 +52,19 @@ public class BookService {
                 return bookRepository.findByGenre(Genre.valueOf(value));
             default:
                 return new ArrayList<>();
+
+    }
+}
+    public List<Book> find2(BookFilterType bookFilterType, String value){
+        switch (bookFilterType){
+            case NAME:
+                return bookRepository.findByName(value);
+            case AUTHOR_NAME:
+                return bookRepository.findByAuthor_Name(value);
+            case GENRE:
+                return bookRepository.findByGenre(Genre.valueOf(value));
+            default:
+                return new ArrayList<>();
         }
     }
 }

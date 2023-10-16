@@ -7,6 +7,7 @@ import com.example.LibraryManagementSystem.Model.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,8 +21,10 @@ public class BookSearchResponse {
     private String name;
     private int cost;
     private Genre genre;
-    @JsonIgnoreProperties("bookList")
+    @JsonIgnoreProperties({"bookList", "addedOn"})
     private Author author;
     private Student student;
     private List<Transaction> transactionList;
+    private Date createdAt;
+    private Date updatedAt;
 }

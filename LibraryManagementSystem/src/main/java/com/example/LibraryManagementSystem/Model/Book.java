@@ -1,12 +1,14 @@
 package com.example.LibraryManagementSystem.Model;
 
 
+import com.example.LibraryManagementSystem.Response.BookSearchResponse;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,8 +29,8 @@ public class Book {
     private Student student;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
-
-
+    @OneToMany(mappedBy = "my_book")
+    private List<Transaction> transactionList;
 
     private int cost;
     @ManyToOne
@@ -38,4 +40,19 @@ public class Book {
     private Date createdAt;
     @UpdateTimestamp
     private Date updatedAt;
+
+    public BookSearchResponse to(){
+        return BookSearchResponse.builder()
+                .id(id)
+                .name(name)
+                .author(author)
+                .cost(cost)
+                .genre(genre)
+                .student(student)
+                .transactionList(transactionList)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .build();
+    }
+
 }
