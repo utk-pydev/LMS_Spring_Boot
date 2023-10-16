@@ -4,11 +4,16 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/sampledb?createDatabaseIfNotExist=true
-    username: root
+    username: rootdd
     password: Utkarsh@123
 custom:
   my_prop: hello_world
+
+book:
+  return:
+    due_date: 14
+

@@ -4,5 +4,6 @@ public enum BookFilterType {
     NAME,
     AUTHOR_NAME,
     GENRE,
-    COST
+    COST,
+    BOOK_ID
 }

@@ -17,6 +17,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String externalTxnId;
+
     @ManyToOne
     @JoinColumn
     private Student my_student;

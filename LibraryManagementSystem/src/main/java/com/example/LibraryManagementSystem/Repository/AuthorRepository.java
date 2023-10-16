@@ -3,16 +3,14 @@ package com.example.LibraryManagementSystem.Repository;
 import com.example.LibraryManagementSystem.Model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     /*
     * Spring data JPA provides @Query to write our own queries
-    *
+    *If we use @Repository or not still we would be using @repository as it is already there in SimpleJPA repository that annotation
     * Native Query
     * JPQL - Java persistence query language
     * */

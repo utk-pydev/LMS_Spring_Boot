@@ -1,9 +1,6 @@
 package com.example.LibraryManagementSystem.Request;
 
-import com.example.LibraryManagementSystem.Model.Author;
-import com.example.LibraryManagementSystem.Model.Book;
-import com.example.LibraryManagementSystem.Model.Genre;
-import com.example.LibraryManagementSystem.Model.Student;
+import com.example.LibraryManagementSystem.Model.*;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +28,8 @@ public class StudentCreateRequest {
                 .email(this.email)
                 .address(this.address)
                 .contact(this.contact)
+                .accoutStatus(AccoutStatus.ACTIVE)
+                .isActive(true)
                 .build();
     }
 

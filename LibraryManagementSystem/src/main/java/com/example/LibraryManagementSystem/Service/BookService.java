@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -40,6 +42,9 @@ public class BookService {
         }
 
         book.setAuthor(authorFromDB);
+        create(book);
+    }
+    public void create(Book book){
         bookRepository.save(book);
     }
     public List<Book> find(BookFilterType bookFilterType, String value){
@@ -50,7 +55,9 @@ public class BookService {
                 return bookRepository.findByAuthor_Name(value);
             case GENRE:
                 return bookRepository.findByGenre(Genre.valueOf(value));
-            default:
+            case BOOK_ID:
+                return bookRepository.findAllById(Collections.singletonList(Integer.parseInt(value)));
+                default:
                 return new ArrayList<>();
 
     }
