@@ -28,8 +28,6 @@ public class BookService {
     public void create(BookCreateRequest bookCreateRequest) throws Exception{
         Book book = bookCreateRequest.to();
         Author author = book.getAuthor();
-
-
         /*
         * Always use JPQL queries because JPA will validate all the queries then only our application will start where as native queries will not be validated and might give error during runtime
         *JPQL checks with JAVA class whereas Native Query interacts with DB
@@ -45,23 +43,18 @@ public class BookService {
         book.setAuthor(authorFromDB);
         create(book);
     }
+
     public void create(Book book)throws Exception{
         bookRepository.save(book);
     }
     public List<Book> find(BookFilterType bookFilterType, String value) throws Exception{
-        switch (bookFilterType){
-            case NAME:
-                return bookRepository.findByName(value);
-            case AUTHOR_NAME:
-                return bookRepository.findByAuthor_Name(value);
-            case GENRE:
-                return bookRepository.findByGenre(Genre.valueOf(value));
-            case BOOK_ID:
-                return bookRepository.findAllById(Collections.singletonList(Integer.parseInt(value)));
-                default:
-                return new ArrayList<>();
-
-        }
+        return switch (bookFilterType) {
+            case NAME -> bookRepository.findByName(value);
+            case AUTHOR_NAME -> bookRepository.findByAuthor_Name(value);
+            case GENRE -> bookRepository.findByGenre(Genre.valueOf(value));
+            case BOOK_ID -> bookRepository.findAllById(Collections.singletonList(Integer.parseInt(value)));
+            default -> new ArrayList<>();
+        };
     }
 
     public Book findBookById(Integer id){
@@ -73,18 +66,5 @@ public class BookService {
 
     public List<Book> getListOfBooks() throws Exception{
         return bookRepository.findAll();
-    }
-
-    public List<Book> find2(BookFilterType bookFilterType, String value) throws Exception{
-        switch (bookFilterType){
-            case NAME:
-                return bookRepository.findByName(value);
-            case AUTHOR_NAME:
-                return bookRepository.findByAuthor_Name(value);
-            case GENRE:
-                return bookRepository.findByGenre(Genre.valueOf(value));
-            default:
-                return new ArrayList<>();
-        }
     }
 }
