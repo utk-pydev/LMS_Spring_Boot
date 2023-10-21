@@ -25,7 +25,7 @@ public class AuthorService {
         authorRepository.deleteById(id);
     }
 
-    public void updateAuthor()throws Exception{
+    public void updateAuthor() throws Exception{
 
     }
 

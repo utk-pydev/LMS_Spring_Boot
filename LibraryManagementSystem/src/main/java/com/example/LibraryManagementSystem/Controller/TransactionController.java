@@ -14,7 +14,6 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-
     @PostMapping("/transaction/issue")
     public String issueTxn(@RequestParam("studentId") int studentId, @RequestParam("bookId") int bookId) throws TxnServiceException {
         return transactionService.issueTxn(studentId, bookId);

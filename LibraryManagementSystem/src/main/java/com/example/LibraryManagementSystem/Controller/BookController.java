@@ -25,61 +25,73 @@ public class BookController {
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(BookController.class);
     @PostMapping("/book")
-    public void createBook(@Valid @RequestBody BookCreateRequest bookCreateRequest) {
+    public ResponseEntity<Boolean> createBook(@Valid @RequestBody BookCreateRequest bookCreateRequest) {
         try {
             bookService.create(bookCreateRequest);
+            return ResponseEntity.ok(true);
         }
         catch (Exception exception){
             logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
 
     @GetMapping("/book/search")
-    public List<Book> getBookFilter(@RequestParam("FilterType") String filterType, @RequestParam("value")String value){
+    public ResponseEntity<List<BookSearchResponse>> getBookFilter(@RequestParam("FilterType") String filterType, @RequestParam("value")String value){
         try {
-            return bookService.find(BookFilterType.valueOf(filterType), value);
-        }catch (Exception exception){
-            logger.info(exception.getMessage());
-        }
-        return null;
-    }
-
-    @GetMapping("/book")
-    public List<BookSearchResponse> getAllBooks() {
-        try {
-            return bookService.getListOfBooks()
+            List<BookSearchResponse>books = bookService
+                    .find(BookFilterType.valueOf(filterType), value)
                     .stream()
                     .map(Book::to)
                     .collect(Collectors.toList());
-        }catch (Exception exception){
+            return ResponseEntity.ok(books);
+        }catch (Exception exception) {
             logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        return null;
+    }
+
+    @GetMapping("/book")
+    public ResponseEntity<List<BookSearchResponse>> getAllBooks() {
+        try {
+            List<BookSearchResponse> books = bookService.getListOfBooks()
+                    .stream()
+                    .map(Book::to)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(books);
+        }catch (Exception exception) {
+            logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
     @DeleteMapping("/book/{id}")
-    public boolean deleteBook(@PathVariable("id") Integer id) {
+    public ResponseEntity<Boolean> deleteBook(@PathVariable("id") Integer id) {
         try{
              bookService.delete(id);
+             return ResponseEntity.ok(true);
         }catch (Exception exception){
             logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
-        return true;
     }
     @PutMapping("/book")
-    public void updateBook(@Valid @RequestBody BookCreateRequest bookCreateRequest){
+    public ResponseEntity<Boolean> updateBook(@Valid @RequestBody BookCreateRequest bookCreateRequest){
         try{
             bookService.create(bookCreateRequest);
+            return ResponseEntity.ok(true);
         }catch (Exception exception){
             logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
     @GetMapping("/book/{id}")
-    public BookSearchResponse findBookById(Integer id){
+    public ResponseEntity<BookSearchResponse> findBookById(Integer id){
         try{
-            return bookService.findBookById(id).to();
-        }catch (Exception exception){
+            BookSearchResponse book =  bookService.findBookById(id).to();
+            return ResponseEntity.ok(book);
+        }catch (Exception exception) {
             logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        return null;
     }
 }
