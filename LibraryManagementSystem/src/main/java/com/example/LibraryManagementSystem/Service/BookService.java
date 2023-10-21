@@ -7,6 +7,7 @@ import com.example.LibraryManagementSystem.Repository.AuthorRepository;
 import com.example.LibraryManagementSystem.Repository.BookRepository;
 import com.example.LibraryManagementSystem.Request.BookCreateRequest;
 import com.example.LibraryManagementSystem.Request.BookFilterType;
+import com.example.LibraryManagementSystem.Response.BookSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class BookService {
     @Autowired
     AuthorRepository authorRepository;
 
-    public void create(BookCreateRequest bookCreateRequest){
+    public void create(BookCreateRequest bookCreateRequest) throws Exception{
         Book book = bookCreateRequest.to();
         Author author = book.getAuthor();
 
@@ -44,10 +45,10 @@ public class BookService {
         book.setAuthor(authorFromDB);
         create(book);
     }
-    public void create(Book book){
+    public void create(Book book)throws Exception{
         bookRepository.save(book);
     }
-    public List<Book> find(BookFilterType bookFilterType, String value){
+    public List<Book> find(BookFilterType bookFilterType, String value) throws Exception{
         switch (bookFilterType){
             case NAME:
                 return bookRepository.findByName(value);
@@ -60,9 +61,21 @@ public class BookService {
                 default:
                 return new ArrayList<>();
 
+        }
     }
-}
-    public List<Book> find2(BookFilterType bookFilterType, String value){
+
+    public Book findBookById(Integer id){
+        return bookRepository.findById(id).orElse(null);
+    }
+    public void delete(Integer id) throws Exception{
+        bookRepository.deleteById(id);
+    }
+
+    public List<Book> getListOfBooks() throws Exception{
+        return bookRepository.findAll();
+    }
+
+    public List<Book> find2(BookFilterType bookFilterType, String value) throws Exception{
         switch (bookFilterType){
             case NAME:
                 return bookRepository.findByName(value);

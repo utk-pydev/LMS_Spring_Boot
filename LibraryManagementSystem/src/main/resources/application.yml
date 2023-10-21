@@ -8,7 +8,7 @@ spring:
     show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/sampledb?createDatabaseIfNotExist=true
-    username: rootdd
+    username: root
     password: Utkarsh@123
 custom:
   my_prop: hello_world

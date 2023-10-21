@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,7 +43,12 @@ public class TransactionService{
         if(student == null){
             throw new TxnServiceException("No Student Such Found");
         }
-        List<Book> books = bookService.find(BookFilterType.BOOK_ID, String.valueOf(bookId));
+        List<Book> books;
+        try {
+            books = bookService.find(BookFilterType.BOOK_ID, String.valueOf(bookId));
+        }catch (Exception exception){
+            throw new TxnServiceException("Books Not Found Exception");
+        }
         if(books.isEmpty()){
             throw new TxnServiceException("No Book Found");
         }
@@ -60,13 +66,22 @@ public class TransactionService{
                 .build();
 
         transactionRepository.save(transaction);
-        bookService.create(book);
+        try {
+            bookService.create(book);
+        }catch (Exception exception){
+            throw new TxnServiceException("Error caused while updating book");
+        }
         return transaction.getExternalTxnId();
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public String returnTxn(int bookId, int studentId){
-        List<Book> books = bookService.find(BookFilterType.BOOK_ID, String.valueOf(bookId));
+    public String returnTxn(int bookId, int studentId) throws TxnServiceException{
+        List<Book>books;
+        try {
+            books = bookService.find(BookFilterType.BOOK_ID, String.valueOf(bookId));
+        }catch (Exception exception){
+            throw new TxnServiceException("Book not found");
+        }
         Student student = studentService.getStudentById(studentId);
         Transaction issueTxn = transactionRepository
                 .findTopByBookAndStudentAndTransactionTypeOrderByTransactionDateDesc(books.get(0), student, TransactionType.ISSUE);
@@ -79,7 +94,12 @@ public class TransactionService{
             .build();
         transactionRepository.save(transaction);
         books.get(0).setStudent(null);
-        bookService.create(books.get(0));
+        try {
+            bookService.create(books.get(0));
+        }catch (Exception exception){
+            throw new TxnServiceException("Book updation issue");
+        }
+
         return transaction.getExternalTxnId();
     }
     private double calculateFine(Transaction transaction){

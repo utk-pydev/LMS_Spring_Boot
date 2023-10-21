@@ -33,7 +33,7 @@ public class Student {
     private List<Book> bookList;
 
 
-    @OneToMany(mappedBy = "my_student")
+    @OneToMany(mappedBy = "student")
     private List<Transaction>transactionList;
 
     @Enumerated(value = EnumType.STRING)

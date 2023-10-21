@@ -29,7 +29,7 @@ public class Book {
     private Student student;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
-    @OneToMany(mappedBy = "my_book")
+    @OneToMany(mappedBy = "book")
     private List<Transaction> transactionList;
 
     private int cost;

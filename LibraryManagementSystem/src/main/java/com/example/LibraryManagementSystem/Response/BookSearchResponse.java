@@ -23,7 +23,9 @@ public class BookSearchResponse {
     private Genre genre;
     @JsonIgnoreProperties({"bookList", "addedOn"})
     private Author author;
+    @JsonIgnoreProperties({"bookList"})
     private Student student;
+    @JsonIgnoreProperties({"book"})
     private List<Transaction> transactionList;
     private Date createdAt;
     private Date updatedAt;

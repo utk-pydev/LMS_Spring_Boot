@@ -17,11 +17,11 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-
     @PostMapping("/student")
     public void createStudent(@Valid @RequestBody StudentCreateRequest studentCreateRequest){
         studentService.create(studentCreateRequest);
     }
+
 
 
 }
