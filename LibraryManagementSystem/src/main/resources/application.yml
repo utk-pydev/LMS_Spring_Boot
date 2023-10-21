@@ -4,7 +4,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/sampledb?createDatabaseIfNotExist=true
@@ -12,7 +12,8 @@ spring:
     password: Utkarsh@123
 custom:
   my_prop: hello_world
-
+debug:
+  mode: enabled
 book:
   return:
     due_date: 14

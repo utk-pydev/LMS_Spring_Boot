@@ -6,15 +6,14 @@ import com.example.LibraryManagementSystem.Request.BookFilterType;
 import com.example.LibraryManagementSystem.Response.BookSearchResponse;
 import com.example.LibraryManagementSystem.Service.BookService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,7 +22,7 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(BookController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
     @PostMapping("/book")
     public ResponseEntity<Boolean> createBook(@Valid @RequestBody BookCreateRequest bookCreateRequest) {
         try {
