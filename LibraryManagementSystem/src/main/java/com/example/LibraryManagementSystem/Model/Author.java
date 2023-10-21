@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.Model;
 
+import com.example.LibraryManagementSystem.Response.AuthorSearchResponse;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,4 +31,14 @@ public class Author {
     private List<Book> bookList;
     @CreationTimestamp
     private Date addedOn;
+
+    public AuthorSearchResponse to(){
+        return AuthorSearchResponse.builder()
+                .id(id)
+                .age(age)
+                .email(email)
+                .country(country)
+                .addedOn(addedOn)
+                .build();
+    }
 }

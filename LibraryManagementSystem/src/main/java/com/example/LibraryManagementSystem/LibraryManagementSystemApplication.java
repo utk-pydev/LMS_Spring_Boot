@@ -18,9 +18,6 @@ public class LibraryManagementSystemApplication implements CommandLineRunner{
 		///Why not here because AuthorRepository is non static and cannot use non static in static thus different and Autowire variable cannot be static
 		SpringApplication.run(LibraryManagementSystemApplication.class, args);
 	}
-//	@Autowired
-//	AuthorRepository authorRepository;
-
 	@Override
 	public void run(String... args)throws Exception{
 		System.out.println("In from function of main class");
