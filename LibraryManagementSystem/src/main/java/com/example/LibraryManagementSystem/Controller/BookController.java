@@ -84,7 +84,7 @@ public class BookController {
         }
     }
     @GetMapping("/book/{id}")
-    public ResponseEntity<BookSearchResponse> findBookById(Integer id){
+    public ResponseEntity<BookSearchResponse> findBookById(@PathVariable("id")Integer id){
         try{
             BookSearchResponse book =  bookService.findBookById(id).to();
             return ResponseEntity.ok(book);
