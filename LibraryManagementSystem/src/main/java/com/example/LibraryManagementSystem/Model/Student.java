@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -31,12 +32,17 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Book> bookList;
 
-
+    /*
+    @OneToOne
+    @JoinColumn
+    @JsonIgnoreProperties({"student", "admin", "password"})
+    private MyUser myUser;
+*/
     @OneToMany(mappedBy = "student")
     private List<Transaction>transactionList;
 
     @Enumerated(value = EnumType.STRING)
-    private AccountStatus accoutStatus;
+    private AccountStatus accountStatus;
 
     private boolean isActive;
 
@@ -64,6 +70,4 @@ public class Student {
     * -----------------------------------------------
     *
     * */
-
-
 }

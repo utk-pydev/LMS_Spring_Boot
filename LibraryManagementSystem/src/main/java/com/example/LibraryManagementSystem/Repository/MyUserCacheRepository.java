@@ -2,6 +2,7 @@ package com.example.LibraryManagementSystem.Repository;
 
 import com.example.LibraryManagementSystem.Model.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -25,7 +25,7 @@ public class StudentCreateRequest {
                 .email(this.email)
                 .address(this.address)
                 .contact(this.contact)
-                .accoutStatus(AccountStatus.ACTIVE)
+                .accountStatus(AccountStatus.ACTIVE)
                 .isActive(true)
                 .build();
     }
