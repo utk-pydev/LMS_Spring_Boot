@@ -1,10 +1,9 @@
 package com.example.LibraryManagementSystem.Model;
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class Student {
     private List<Transaction>transactionList;
 
     @Enumerated(value = EnumType.STRING)
-    private AccoutStatus accoutStatus;
+    private AccountStatus accoutStatus;
 
     private boolean isActive;
 

@@ -1,6 +1,6 @@
 package com.example.LibraryManagementSystem.Model;
 
-public enum AccoutStatus {
+public enum AccountStatus {
     ACTIVE,
     INACTIVE,
     BLOCKED,

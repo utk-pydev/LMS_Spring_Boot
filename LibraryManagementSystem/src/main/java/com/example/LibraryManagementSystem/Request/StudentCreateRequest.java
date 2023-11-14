@@ -1,10 +1,7 @@
 package com.example.LibraryManagementSystem.Request;
 
 import com.example.LibraryManagementSystem.Model.*;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 @Getter
@@ -28,7 +25,7 @@ public class StudentCreateRequest {
                 .email(this.email)
                 .address(this.address)
                 .contact(this.contact)
-                .accoutStatus(AccoutStatus.ACTIVE)
+                .accoutStatus(AccountStatus.ACTIVE)
                 .isActive(true)
                 .build();
     }

@@ -48,13 +48,18 @@ public class BookService {
         bookRepository.save(book);
     }
     public List<Book> find(BookFilterType bookFilterType, String value) throws Exception{
-        return switch (bookFilterType) {
-            case NAME -> bookRepository.findByName(value);
-            case AUTHOR_NAME -> bookRepository.findByAuthor_Name(value);
-            case GENRE -> bookRepository.findByGenre(Genre.valueOf(value));
-            case BOOK_ID -> bookRepository.findAllById(Collections.singletonList(Integer.parseInt(value)));
-            default -> new ArrayList<>();
-        };
+        switch (bookFilterType) {
+            case NAME:
+               return bookRepository.findByName(value);
+            case AUTHOR_NAME:
+               return bookRepository.findByAuthor_Name(value);
+            case GENRE:
+               return bookRepository.findByGenre(Genre.valueOf(value));
+            case BOOK_ID:
+               return bookRepository.findAllById(Collections.singletonList(Integer.parseInt(value)));
+            default:
+              return  new ArrayList<>();
+        }
     }
 
     public Book findBookById(Integer id){

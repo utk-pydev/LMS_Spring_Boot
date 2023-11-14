@@ -18,3 +18,8 @@ book:
   return:
     due_date: 14
 
+users:
+  student:
+    authority: std
+  admin:
+    authority: adm
