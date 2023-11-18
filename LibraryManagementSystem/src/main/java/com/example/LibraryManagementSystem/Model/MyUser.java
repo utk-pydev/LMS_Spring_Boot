@@ -30,7 +30,7 @@ public class MyUser implements UserDetails, Serializable {
     private String password;
     @Column(unique = true, nullable = false)
     private String username;
-/*
+
     @OneToOne(mappedBy = "myUser")
     @JsonIgnoreProperties("myUser")
     private Student student;
@@ -38,7 +38,7 @@ public class MyUser implements UserDetails, Serializable {
     @OneToOne(mappedBy = "myUser")
     @JsonIgnoreProperties("myUser")
     private Admin admin;
-  */
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String []arr = this.authority.split(AUTHORITY_DELIMITER);

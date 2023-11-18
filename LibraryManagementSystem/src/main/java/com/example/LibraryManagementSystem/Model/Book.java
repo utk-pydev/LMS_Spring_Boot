@@ -7,7 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,7 +37,7 @@ public class Book implements Serializable {
 
     private int cost;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="author_id")
     private Author author;
     @CreationTimestamp
     private Date createdAt;

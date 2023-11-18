@@ -31,10 +31,10 @@ public class Admin implements Serializable {
 
     @UpdateTimestamp
     private Date updatedOn;
-/*
-    @OneToOne(mappedBy = "admin")
-    @JoinColumn
+
+    @OneToOne
+    @JoinColumn(name="myUser_id")
     @JsonIgnoreProperties({"amdin", "student", "password"})
     private MyUser myUser;
-*/
+
 }

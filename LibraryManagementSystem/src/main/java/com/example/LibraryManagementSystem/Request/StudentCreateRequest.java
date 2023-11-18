@@ -17,7 +17,10 @@ public class StudentCreateRequest {
     private String contact;
     private String address;
     private String email;
-
+    @NotBlank
+    private String username;
+    @NotBlank
+    private String password;
 
     public Student to(){
         return Student.builder()
@@ -25,8 +28,18 @@ public class StudentCreateRequest {
                 .email(this.email)
                 .address(this.address)
                 .contact(this.contact)
+                .username(this.username)
+                .password(this.password)
                 .accountStatus(AccountStatus.ACTIVE)
                 .isActive(true)
+                .build();
+    }
+
+    public UserCreateRequest toUser(){
+        return UserCreateRequest.builder()
+                .student(to())
+                .username(this.username)
+                .password(this.password)
                 .build();
     }
 

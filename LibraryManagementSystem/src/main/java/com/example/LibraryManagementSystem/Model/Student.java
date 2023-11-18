@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +32,14 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Book> bookList;
 
-    /*
+    @Column(unique = true)
+    private String username;
+    private String password;
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name="myUser_id")
     @JsonIgnoreProperties({"student", "admin", "password"})
     private MyUser myUser;
-*/
+
     @OneToMany(mappedBy = "student")
     private List<Transaction>transactionList;
 
