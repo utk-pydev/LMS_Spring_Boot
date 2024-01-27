@@ -1,0 +1,25 @@
+server:
+  port: 9000
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/sampledb?createDatabaseIfNotExist=true
+    username: root
+    password: Utkarsh@123
+custom:
+  my_prop: hello_world
+debug:
+  mode: enabled
+book:
+  return:
+    due_date: 14
+
+users:
+  student:
+    authority: std
+  admin:
+    authority: adm
